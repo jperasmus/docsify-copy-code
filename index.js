@@ -32,9 +32,12 @@
                 }, 1000);
               }
 
-              // Remove the selections - NOTE: Should use
-              // removeRange(range) when it is supported
-              window.getSelection().removeAllRanges();
+              var selection = window.getSelection();
+              if (typeof selection.removeRange === "function") {
+                selection.removeRange(range);
+              } else if (typeof selection.removeAllRanges === "function") {
+                selection.removeAllRanges();
+              }
             });
 
             element.appendChild(button);
