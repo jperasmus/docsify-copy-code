@@ -10,6 +10,10 @@
             button.appendChild(document.createTextNode("Click to copy"));
             button.classList.add("docsify-copy-code-button");
 
+            if (vm.config.themeColor) {
+              button.style.background = vm.config.themeColor;
+            }
+
             button.addEventListener("click", function(event) {
               var range = document.createRange();
               var codeBlock = element.querySelector("code");
