@@ -75,6 +75,18 @@
             });
         });
     }
+    if (document.querySelector('link[href*="docsify-copy-code"]')) {
+        console.warn("[Deprecation] Link to external docsify-copy-code stylesheet is no longer necessary.");
+    }
+    window.DocsifyCopyCodePlugin = {
+        init: function init() {
+            return function(hook, vm) {
+                hook.ready(function() {
+                    console.warn("[Deprecation] Manually initializing docsify-copy-code using window.DocsifyCopyCodePlugin.init() is no longer necessary.");
+                });
+            };
+        }
+    };
     window.$docsify = window.$docsify || {};
     window.$docsify.plugins = [ docsifyCopyCode ].concat(window.$docsify.plugins || []);
 })();

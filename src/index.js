@@ -61,5 +61,23 @@ function docsifyCopyCode(hook, vm) {
     });
 }
 
+// Deprecation warning for v1.x: stylesheet
+if (document.querySelector('link[href*="docsify-copy-code"]')) {
+    // eslint-disable-next-line
+    console.warn('[Deprecation] Link to external docsify-copy-code stylesheet is no longer necessary.');
+}
+
+// Deprecation warning for v1.x: init()
+window.DocsifyCopyCodePlugin = {
+    init: function() {
+        return function(hook, vm) {
+            hook.ready(function() {
+                // eslint-disable-next-line
+                console.warn('[Deprecation] Manually initializing docsify-copy-code using window.DocsifyCopyCodePlugin.init() is no longer necessary.');
+            });
+        };
+    }
+};
+
 window.$docsify = window.$docsify || {};
 window.$docsify.plugins = [docsifyCopyCode].concat(window.$docsify.plugins || []);
