@@ -3,9 +3,9 @@
     init: function() {
       return function(hook, vm) {
         hook.doneEach(function() {
-          var codeBlocks = document.querySelectorAll("pre[v-pre]");
+          var codeBlocks = Array.apply(null, document.querySelectorAll("pre[v-pre]"));
 
-          codeBlocks.forEach((element, i, obj) => {
+          codeBlocks.forEach(function(element, i, obj) {
             var button = document.createElement("button");
             button.appendChild(document.createTextNode("Click to copy"));
             button.classList.add("docsify-copy-code-button");
@@ -15,10 +15,13 @@
             }
 
             button.addEventListener("click", function(event) {
+              var selection = window.getSelection();
               var range = document.createRange();
               var codeBlock = element.querySelector("code");
+
               range.selectNode(codeBlock);
-              window.getSelection().addRange(range);
+              selection.removeAllRanges();
+              selection.addRange(range);
 
               try {
                 // Now that we've selected the anchor text, execute the copy command
