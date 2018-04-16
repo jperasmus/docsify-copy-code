@@ -1,6 +1,6 @@
 {
   "name": "docsify-copy-code",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A docsify plugin that copies a markdown code block to your clipboard",
   "author": "JP Erasmus <jperasmus11@gmail.com>",
   "license": "MIT",
@@ -15,8 +15,7 @@
     "build": "rollup -c",
     "clean": "rimraf dist/*",
     "prepare": "npm run clean && npm run build",
-    "start": "npm run build -- -w",
-    "version": "npm run build && git add -A dist"
+    "start": "npm run build -- -w"
   },
   "devDependencies": {
     "autoprefixer": "^8.2.0",
