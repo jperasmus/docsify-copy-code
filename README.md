@@ -10,8 +10,14 @@ Add the following `script` tag to your `index.html`:
 
 ```html
 <!-- Latest -->
-<script src="https://unpkg.com/docsify-copy-code/index.js"></script>
+<script src="https://unpkg.com/docsify-copy-code"></script>
+```
+
+If you prefer to load a specific version, include a version number in the URL:
+
+```html
+<!-- Latest v2.x.x -->
+<script src="https://unpkg.com/docsify-copy-code@2"></script>
 ```
 
 That is it! If all went well, any preformatted code should now have a `Click to copy!` link on hover.
-
