@@ -8,7 +8,7 @@ import styles from './styles.css';
 // =============================================================================
 function docsifyCopyCode(hook, vm) {
     hook.doneEach(function() {
-        const codeBlocks = Array.apply(null, document.querySelectorAll('pre[v-pre]'));
+        const codeBlocks = Array.apply(null, document.querySelectorAll('pre[data-lang]'));
 
         codeBlocks.forEach(function(element, i, obj) {
             const button = document.createElement('button');
@@ -20,9 +20,21 @@ function docsifyCopyCode(hook, vm) {
                 button.style.background = vm.config.themeColor;
             }
 
-            button.addEventListener('click', function(event) {
+            element.appendChild(button);
+        });
+    });
+
+    hook.mounted(function() {
+        const listenerHost = document.querySelector('.content');
+
+        listenerHost.addEventListener('click', function(evt) {
+            const isCopyCodeButton = evt.target.classList.contains('docsify-copy-code-button');
+
+            if (isCopyCodeButton) {
+                const button = evt.target;
                 const range = document.createRange();
-                const codeBlock = element.querySelector('code');
+                const preElm = button.parentNode;
+                const codeBlock = preElm.querySelector('code');
 
                 let selection = window.getSelection();
 
@@ -54,9 +66,7 @@ function docsifyCopyCode(hook, vm) {
                 } else if (typeof selection.removeAllRanges === 'function') {
                     selection.removeAllRanges();
                 }
-            });
-
-            element.appendChild(button);
+            }
         });
     });
 }

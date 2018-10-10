@@ -35,6 +35,6 @@
 }
 
 .docsify-copy-code-button:focus,
-pre[v-pre]:hover .docsify-copy-code-button {
+pre:hover .docsify-copy-code-button {
     opacity: 1;
 }
