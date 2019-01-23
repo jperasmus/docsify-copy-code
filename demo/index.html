@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/docsify/themes/vue.css">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/docsify-themeable/dist/css/theme-simple.css"> -->
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        window.$docsify = {
+            // GENERAL
+            // -----------------------------------------------------------------
+            name      : 'docsify-copy-code',
+            repo      : 'https://github.com/jperasmus/docsify-copy-code',
+            loadNavbar: 'navbar.md',
+            // themeColor: 'purple',
+
+            // NAVIGATION
+            // -----------------------------------------------------------------
+            alias: {
+                // Reuse navbar for all locals
+                '/.*/navbar.md': '/navbar.md',
+                // Locals
+                '/zh-cn/(.*)': './zh-cn/$1',
+                '/de-de/(.*)': './de-de/$1',
+                '/ru/(.*)'   : './ru/$1',
+                '/es/(.*)'   : './es/$1'
+            },
+
+            // PLUGINS
+            // -----------------------------------------------------------------
+            copyCode: {
+                // buttonText : 'buttonText:String',
+                // errorText  : 'errorText:String',
+                // successText: 'successText:String'
+
+                buttonText: {
+                    '/zh-cn/': '点击复制',
+                    '/ru/'   : 'Скопировать в буфер обмена',
+                    '/de-de/': 'Klicken Sie zum Kopieren',
+                    '/es/'   : 'Haga clic para copiar',
+                    '/'      : 'Copy to clipboard'
+                },
+                errorText: {
+                    '/zh-cn/': '错误',
+                    '/ru/'   : 'ошибка',
+                    '/'      : 'Error'
+                },
+                successText: {
+                    '/zh-cn/': '复制',
+                    '/ru/'   : 'Скопировано',
+                    '/de-de/': 'Kopiert',
+                    '/es/'   : 'Copiado',
+                    '/'      : 'Copied'
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/docsify@4"></script>
+    <script src="/dist/docsify-copy-code.js"></script>
+</body>
+</html>

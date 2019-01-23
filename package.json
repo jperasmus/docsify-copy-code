@@ -14,6 +14,7 @@
   "scripts": {
     "build": "rollup -c",
     "clean": "rimraf dist/*",
+    "dev": "node server.js & npm run start",
     "prepare": "npm run clean && npm run build",
     "start": "npm run build -- -w"
   },
