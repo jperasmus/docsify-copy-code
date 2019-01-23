@@ -5,17 +5,21 @@ const path = require('path');
 import autoprefixer from 'autoprefixer';
 import babel        from 'rollup-plugin-babel';
 import commonjs     from 'rollup-plugin-commonjs';
-import eslint       from 'rollup-plugin-eslint';
+import { eslint }   from 'rollup-plugin-eslint';
 import json         from 'rollup-plugin-json';
 import merge        from 'lodash.merge';
 import pkg          from './package.json';
 import postcss      from 'rollup-plugin-postcss'
 import resolve      from 'rollup-plugin-node-resolve';
-import uglify       from 'rollup-plugin-uglify';
+import { uglify }   from 'rollup-plugin-uglify';
 
 
 // Settings
 // =============================================================================
+// Copyright
+const currentYear = (new Date()).getFullYear();
+const releaseYear = 2017;
+
 // Output
 const entryFile  = path.resolve(__dirname, 'src', 'index.js');
 const outputFile = path.resolve(__dirname, 'dist', `${pkg.name}.js`);
@@ -25,7 +29,7 @@ const bannerData = [
     `${pkg.name}`,
     `v${pkg.version}`,
     `${pkg.homepage}`,
-    `(c) ${(new Date()).getFullYear()} ${pkg.author}`,
+    `(c) ${releaseYear}${currentYear === releaseYear ? '' : '-' + currentYear} ${pkg.author}`,
     `${pkg.license} license`
 ];
 
@@ -39,15 +43,12 @@ const pluginSettings = {
     babel: {
         exclude: ['node_modules/**'],
         presets: [
-            ['env', {
-                modules: false,
-                targets: {
-                    browsers: ['ie >= 9']
+            [
+                '@babel/env', {
+                    modules: false,
+                    targets: 'last 2 versions, ie >= 10'
                 }
-            }]
-        ],
-        plugins: [
-            'external-helpers'
+            ]
         ]
     },
     postcss: {
