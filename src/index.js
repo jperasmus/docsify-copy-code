@@ -24,11 +24,13 @@ function docsifyCopyCode(hook, vm) {
                     i18n[key] = textValue;
                 }
                 else if (typeof textValue === 'object') {
-                    const hrefMatch = Object.keys(textValue).filter(key => location.href.indexOf(key) > -1)[0];
+                    Object.keys(textValue).some(match => {
+                        const isMatch = location.href.indexOf(match) > -1;
 
-                    if (hrefMatch) {
-                        i18n[key] = textValue[hrefMatch];
-                    }
+                        i18n[key] = isMatch ? textValue[match] : i18n[key];
+
+                        return isMatch;
+                    });
                 }
             });
         }
