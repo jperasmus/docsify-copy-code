@@ -1,37 +1,48 @@
+.docsify-copy-code-button,
+.docsify-copy-code-button span {
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
 .docsify-copy-code-button {
     position: absolute;
     z-index: 1;
     top: 0;
     right: 0;
-    padding: 10px;
-    opacity: 0;
+    overflow: visible;
+    padding: 0.65em 0.8em;
     border: 0;
     border-radius: 0;
     outline: 0;
-    background: #ccc;
+    font-size: 1em;
+    background: #808080;
+    background: var(--theme-color, #808080);
     color: #fff;
-    cursor: pointer;
-    transition: all 0.25s ease;
+    opacity: 0;
 }
 
-.docsify-copy-code-button::after {
-    content: "Copied!";
-    position: absolute;
-    z-index: 0;
-    top: 0;
-    right: 100%;
-    margin: 5px 10px 0;
-    padding: 5px;
+.docsify-copy-code-button span {
     border-radius: 3px;
-    background: #ccc;
-    color: #fff;
-    font-size: 11px;
-    transition: all 0.25s ease;
-    transform: translateX(120%) scale(0);
+    background: inherit;
+    pointer-events: none;
 }
 
-.docsify-copy-code-button.success::after {
-    transform: translateX(0) scale(1);
+.docsify-copy-code-button .error,
+.docsify-copy-code-button .success {
+    position: absolute;
+    z-index: -100;
+    top: 50%;
+    left: 0;
+    padding: 0.5em 0.65em;
+    font-size: 0.825em;
+    opacity: 0;
+    transform: translate(0, -50%);
+}
+
+.docsify-copy-code-button.error .error,
+.docsify-copy-code-button.success .success {
+    opacity: 1;
+    transform: translate(-115%, -50%);
 }
 
 .docsify-copy-code-button:focus,

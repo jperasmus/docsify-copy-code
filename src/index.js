@@ -8,19 +8,43 @@ import styles from './styles.css';
 // =============================================================================
 function docsifyCopyCode(hook, vm) {
     hook.doneEach(function() {
-        const codeBlocks = Array.apply(null, document.querySelectorAll('pre[data-lang]'));
+        const targetElms = Array.apply(null, document.querySelectorAll('pre[data-lang]'));
+        const i18n = {
+            buttonText: 'Copy to clipboard',
+            errorText: 'Error',
+            successText: 'Copied'
+        };
 
-        codeBlocks.forEach(function(element, i, obj) {
-            const button = document.createElement('button');
+        // Update i18n strings based on options and location.href
+        if (vm.config.copyCode) {
+            Object.keys(i18n).forEach(key => {
+                const textValue = vm.config.copyCode[key];
 
-            button.appendChild(document.createTextNode('Click to copy'));
-            button.classList.add('docsify-copy-code-button');
+                if (typeof textValue === 'string') {
+                    i18n[key] = textValue;
+                }
+                else if (typeof textValue === 'object') {
+                    Object.keys(textValue).some(match => {
+                        const isMatch = location.href.indexOf(match) > -1;
 
-            if (vm.config.themeColor) {
-                button.style.background = vm.config.themeColor;
-            }
+                        i18n[key] = isMatch ? textValue[match] : i18n[key];
 
-            element.appendChild(button);
+                        return isMatch;
+                    });
+                }
+            });
+        }
+
+        const template = [
+            '<button class="docsify-copy-code-button">',
+            `<span class="label">${i18n.buttonText}</span>`,
+            `<span class="error">${i18n.errorText}</span>`,
+            `<span class="success">${i18n.successText}</span>`,
+            '</button>'
+        ].join('');
+
+        targetElms.forEach(elm => {
+            elm.insertAdjacentHTML('beforeend', template);
         });
     });
 
@@ -31,31 +55,35 @@ function docsifyCopyCode(hook, vm) {
             const isCopyCodeButton = evt.target.classList.contains('docsify-copy-code-button');
 
             if (isCopyCodeButton) {
-                const button = evt.target;
+                const buttonElm = evt.target.tagName === 'BUTTON' ? evt.target : evt.target.parentNode;
                 const range = document.createRange();
-                const preElm = button.parentNode;
-                const codeBlock = preElm.querySelector('code');
+                const preElm = buttonElm.parentNode;
+                const codeElm = preElm.querySelector('code');
 
                 let selection = window.getSelection();
 
-                range.selectNode(codeBlock);
+                range.selectNode(codeElm);
                 selection.removeAllRanges();
                 selection.addRange(range);
 
                 try {
-                    // Now that we've selected the anchor text, execute the copy command
+                    // Copy selected text
                     const successful = document.execCommand('copy');
 
                     if (successful) {
-                        button.classList.add('success');
+                        buttonElm.classList.add('success');
                         setTimeout(function() {
-                            button.classList.remove('success');
+                            buttonElm.classList.remove('success');
                         }, 1000);
                     }
-                } catch (err) {
-                    button.classList.add('error');
+                }
+                catch(err) {
+                    // eslint-disable-next-line
+                    console.error(`docsify-copy-code: ${err}`);
+
+                    buttonElm.classList.add('error');
                     setTimeout(function() {
-                        button.classList.remove('error');
+                        buttonElm.classList.remove('error');
                     }, 1000);
                 }
 
@@ -63,7 +91,8 @@ function docsifyCopyCode(hook, vm) {
 
                 if (typeof selection.removeRange === 'function') {
                     selection.removeRange(range);
-                } else if (typeof selection.removeAllRanges === 'function') {
+                }
+                else if (typeof selection.removeAllRanges === 'function') {
                     selection.removeAllRanges();
                 }
             }
