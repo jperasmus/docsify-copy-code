@@ -7,7 +7,7 @@ A [docsify](https://docsify.js.org) plugin that adds a button to easily copy cod
 
 ## Installation
 
-**Production**
+### Production
 
 Add following script tag to your `index.html` after docsify. Specifying the `@[version]` in the URL ensures that the release of a major update (v3.x) will not break your production site:
 
@@ -16,7 +16,7 @@ Add following script tag to your `index.html` after docsify. Specifying the `@[v
 <script src="https://unpkg.com/docsify-copy-code@2"></script>
 ```
 
-**Development**
+### Development
 
 If you prefer to load the latest version of the library, you may do so by omitting the `@[version]` from the above URL.
 
