@@ -3,15 +3,15 @@
 const path = require('path');
 
 import autoprefixer from 'autoprefixer';
-import babel        from 'rollup-plugin-babel';
-import commonjs     from 'rollup-plugin-commonjs';
-import { eslint }   from 'rollup-plugin-eslint';
-import json         from 'rollup-plugin-json';
-import merge        from 'lodash.merge';
-import pkg          from './package.json';
-import postcss      from 'rollup-plugin-postcss'
-import resolve      from 'rollup-plugin-node-resolve';
-import { uglify }   from 'rollup-plugin-uglify';
+import merge       from 'lodash.merge';
+import babel       from '@rollup/plugin-babel';
+import commonjs    from '@rollup/plugin-commonjs';
+import eslint      from '@rollup/plugin-eslint'
+import json        from '@rollup/plugin-json'
+import resolve     from '@rollup/plugin-node-resolve';
+import postcss     from 'rollup-plugin-postcss';
+import { terser }  from "rollup-plugin-terser";
+import pkg         from './package.json';
 
 
 // Settings
@@ -36,40 +36,42 @@ const bannerData = [
 // Plugins
 const pluginSettings = {
     eslint: {
-        exclude       : ['node_modules/**', './package.json', '**.css'],
+        exclude: ['node_modules/**', './package.json', '**.css'],
         throwOnWarning: false,
-        throwOnError  : true
+        throwOnError: true
     },
     babel: {
+        babelHelpers: 'bundled',
         exclude: ['node_modules/**'],
         presets: [
             [
                 '@babel/env', {
                     modules: false,
-                    targets: 'last 2 versions, ie >= 10'
+                    targets: 'last 2 versions, ie > 10'
                 }
             ]
         ]
     },
+    json: {},
     postcss: {
         minimize: true,
-        plugins : [
+        plugins: [
             autoprefixer()
         ]
     },
-    uglify: {
+    terser: {
         beautify: {
             compress: false,
-            mangle  : false,
+            mangle: false,
             output: {
                 beautify: true,
-                comments: /(?:^!|@(?:license|preserve))/
+                comments: 'some'
             }
         },
         minify: {
             compress: true,
-            mangle  : true,
-            output  : {
+            mangle: true,
+            output: {
                 comments: new RegExp(pkg.name)
             }
         }
@@ -83,15 +85,17 @@ const pluginSettings = {
 const config = {
     input : entryFile,
     output: {
-        file     : outputFile,
-        banner   : `/*!\n * ${ bannerData.join('\n * ') }\n */`,
+        file: outputFile,
+        banner: `/*!\n * ${bannerData.join('\n * ')}\n */`,
         sourcemap: true
     },
     plugins: [
         postcss(pluginSettings.postcss),
-        resolve(),
+        resolve({
+            moduleDirectories: ['node_modules']
+        }),
         commonjs(),
-        json(),
+        json(pluginSettings.json),
         eslint(pluginSettings.eslint),
         babel(pluginSettings.babel)
     ],
@@ -108,18 +112,18 @@ const iife = merge({}, config, {
         format: 'iife'
     },
     plugins: config.plugins.concat([
-        uglify(pluginSettings.uglify.beautify)
+        terser(pluginSettings.terser.beautify)
     ])
 });
 
 // IIFE (Minified)
 const iifeMinified = merge({}, config, {
     output: {
-        file  : iife.output.file.replace(/\.js$/, '.min.js'),
+        file: iife.output.file.replace(/\.js$/, '.min.js'),
         format: iife.output.format
     },
     plugins: config.plugins.concat([
-        uglify(pluginSettings.uglify.minify)
+        terser(pluginSettings.terser.minify)
     ])
 });
 

@@ -1,7 +1,6 @@
 // Dependencies
 // =============================================================================
-// eslint-disable-next-line no-unused-vars
-import styles from './styles.css';
+import './styles.css';
 
 
 // Plugin
@@ -78,7 +77,7 @@ function docsifyCopyCode(hook, vm) {
                     }
                 }
                 catch(err) {
-                    // eslint-disable-next-line
+                    // eslint-disable-next-line no-console
                     console.error(`docsify-copy-code: ${err}`);
 
                     buttonElm.classList.add('error');
@@ -102,7 +101,7 @@ function docsifyCopyCode(hook, vm) {
 
 // Deprecation warning for v1.x: stylesheet
 if (document.querySelector('link[href*="docsify-copy-code"]')) {
-    // eslint-disable-next-line
+    // eslint-disable-next-line no-console
     console.warn('[Deprecation] Link to external docsify-copy-code stylesheet is no longer necessary.');
 }
 
@@ -111,7 +110,7 @@ window.DocsifyCopyCodePlugin = {
     init: function() {
         return function(hook, vm) {
             hook.ready(function() {
-                // eslint-disable-next-line
+                // eslint-disable-next-line no-console
                 console.warn('[Deprecation] Manually initializing docsify-copy-code using window.DocsifyCopyCodePlugin.init() is no longer necessary.');
             });
         };

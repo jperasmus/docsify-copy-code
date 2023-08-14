@@ -24,6 +24,7 @@ If you prefer to load the latest version of the library, you may do so by omitti
 <!-- Latest (not recommended for production) -->
 <script src="https://unpkg.com/docsify-copy-code"></script>
 ```
+
 ## Usage
 
 Create a markdown code block with help of triple backticks at the beginning and end of your code. This block will have a copy button on the top right when hovering over it.

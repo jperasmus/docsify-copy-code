@@ -5,7 +5,7 @@
         init: function() {
             return function(hook, vm) {
                 hook.ready(function() {
-                    // eslint-disable-next-line
+                    // eslint-disable-next-line no-console
                     console.warn('[Update] docsify-copy-code has been updated. Please see new installation instructions at https://github.com/jperasmus/docsify-copy-code.');
                 });
             };
