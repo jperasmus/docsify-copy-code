@@ -2,7 +2,7 @@
 
 ## 2.1.0
 
-*2019-01-23*
+_2019-01-23_
 
 - Added localization (l10n) support via `copyCode` options
 - Added error feedback (UI & console)
@@ -13,7 +13,7 @@
 
 ## 2.0.2
 
-*2018-04-16*
+_2018-04-16_
 
 - Updated plugin bundling configuration
 - Removed necessity for `init()` method
@@ -21,6 +21,6 @@
 
 ## 1.0.0
 
-*2017-09-28*
+_2017-09-28_
 
 - Initial release
