@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.0.0
+
+_2023-08-18_
+
+- Upgrade all dependencies & overhaul build tools
+- Drop support for Node.js < v14
+- Ensure screen readers correctly announces copied text
+
 ## 2.1.0
 
 _2019-01-23_
