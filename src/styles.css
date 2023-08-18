@@ -1,5 +1,5 @@
 .docsify-copy-code-button,
-.docsify-copy-code-button span {
+.docsify-copy-code-button > span {
     cursor: pointer;
     transition: all 0.25s ease;
 }
@@ -21,14 +21,14 @@
     opacity: 0;
 }
 
-.docsify-copy-code-button span {
+.docsify-copy-code-button > span {
     border-radius: 3px;
     background: inherit;
     pointer-events: none;
 }
 
-.docsify-copy-code-button .error,
-.docsify-copy-code-button .success {
+.docsify-copy-code-button > .error,
+.docsify-copy-code-button > .success {
     position: absolute;
     z-index: -100;
     top: 50%;
@@ -39,14 +39,23 @@
     transform: translate(0, -50%);
 }
 
-.docsify-copy-code-button.error .error,
-.docsify-copy-code-button.success .success {
+.docsify-copy-code-button.error > .error,
+.docsify-copy-code-button.success > .success {
     right: 100%;
     opacity: 1;
-    transform: translate(-115%, -50%);
+    transform: translate(-25%, -50%);
 }
 
 .docsify-copy-code-button:focus,
 pre:hover .docsify-copy-code-button {
     opacity: 1;
+}
+
+.docsify-copy-code-button > [aria-live] {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }

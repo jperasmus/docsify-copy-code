@@ -1,13 +1,14 @@
 import './styles.css';
 
 function docsifyCopyCode(hook, vm) {
+  const i18n = {
+    buttonText: 'Copy to clipboard',
+    errorText: 'Error',
+    successText: 'Copied',
+  };
+
   hook.doneEach(function () {
     const targetElms = Array.from(document.querySelectorAll('pre[data-lang]'));
-    const i18n = {
-      buttonText: 'Copy to clipboard',
-      errorText: 'Error',
-      successText: 'Copied',
-    };
 
     // Update i18n strings based on options and location.href
     if (vm.config.copyCode) {
@@ -31,8 +32,9 @@ function docsifyCopyCode(hook, vm) {
     const template = [
       '<button class="docsify-copy-code-button">',
       `<span class="label">${i18n.buttonText}</span>`,
-      `<span class="error">${i18n.errorText}</span>`,
-      `<span class="success">${i18n.successText}</span>`,
+      `<span class="error" aria-hidden="hidden">${i18n.errorText}</span>`,
+      `<span class="success" aria-hidden="hidden">${i18n.successText}</span>`,
+      '<span aria-live="polite"></span>',
       '</button>',
     ].join('');
 
@@ -58,6 +60,7 @@ function docsifyCopyCode(hook, vm) {
           const range = document.createRange();
           const preElm = buttonElm.parentNode;
           const codeElm = preElm.querySelector('code');
+          const liveRegionElm = buttonElm.querySelector('[aria-live]');
 
           let selection = window.getSelection();
 
@@ -74,8 +77,11 @@ function docsifyCopyCode(hook, vm) {
 
             if (successful) {
               buttonElm.classList.add('success');
+              liveRegionElm.innerText = i18n.successText;
+
               setTimeout(function () {
                 buttonElm.classList.remove('success');
+                liveRegionElm.innerText = '';
               }, 1000);
             }
           } catch (err) {
@@ -83,8 +89,11 @@ function docsifyCopyCode(hook, vm) {
             console.error(`docsify-copy-code: ${err}`);
 
             buttonElm.classList.add('error');
+            liveRegionElm.innerText = i18n.errorText;
+
             setTimeout(function () {
               buttonElm.classList.remove('error');
+              liveRegionElm.innerText = '';
             }, 1000);
           }
 
