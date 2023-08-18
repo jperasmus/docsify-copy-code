@@ -39,11 +39,11 @@ Button text can be customized as follows:
 window.$docsify = {
   // docsify-copy-code (defaults)
   copyCode: {
-    buttonText : 'Copy to clipboard',
-    errorText  : 'Error',
-    successText: 'Copied'
-  }
-}
+    buttonText: 'Copy to clipboard',
+    errorText: 'Error',
+    successText: 'Copied',
+  },
+};
 ```
 
 ### Localization (l10n)
@@ -55,25 +55,25 @@ window.$docsify = {
   copyCode: {
     buttonText: {
       '/zh-cn/': '点击复制',
-      '/ru/'   : 'Скопировать в буфер обмена',
+      '/ru/': 'Скопировать в буфер обмена',
       '/de-de/': 'Klicken Sie zum Kopieren',
-      '/es/'   : 'Haga clic para copiar',
-      '/'      : 'Copy to clipboard'
+      '/es/': 'Haga clic para copiar',
+      '/': 'Copy to clipboard',
     },
     errorText: {
       '/zh-cn/': '错误',
-      '/ru/'   : 'ошибка',
-      '/'      : 'Error'
+      '/ru/': 'ошибка',
+      '/': 'Error',
     },
     successText: {
       '/zh-cn/': '复制',
-      '/ru/'   : 'Скопировано',
+      '/ru/': 'Скопировано',
       '/de-de/': 'Kopiert',
-      '/es/'   : 'Copiado',
-      '/'      : 'Copied'
-    }
-  }
-}
+      '/es/': 'Copiado',
+      '/': 'Copied',
+    },
+  },
+};
 ```
 
 **Note:** Docsify's [alias](https://docsify.js.org/#/configuration?id=alias) option makes it easy to manage local content using separate directories. See the [`/demo/`](https://github.com/jperasmus/docsify-copy-code/tree/master/demo) content in this repo for an example.
