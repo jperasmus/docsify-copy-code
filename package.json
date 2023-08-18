@@ -1,6 +1,6 @@
 {
   "name": "docsify-copy-code",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "A docsify plugin that copies a markdown code block to your clipboard",
   "author": "JP Erasmus <jperasmus11@gmail.com>",
   "contributors": [
