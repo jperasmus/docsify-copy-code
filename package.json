@@ -15,7 +15,7 @@
   "main": "dist/docsify-copy-code.js",
   "unpkg": "dist/docsify-copy-code.min.js",
   "scripts": {
-    "build": "rollup -c --logLevel debug",
+    "build": "rollup -c",
     "clean": "rimraf dist/*",
     "dev": "node server.js & npm run start",
     "start": "npm run build -- -w"
