@@ -97,6 +97,9 @@ function docsifyCopyCode(hook, vm) {
             }, 1000);
           }
 
+          // unfocus clicked element
+          setTimeout(() => { evt.target.blur(); }, 1500);
+
           selection = window.getSelection();
 
           if (selection) {
