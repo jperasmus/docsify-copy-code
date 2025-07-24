@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.1
+
+_2025-07-24_
+
+- Fix issue with copy button keeping focus
+
 ## 3.0.0
 
 _2023-08-18_
